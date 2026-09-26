@@ -14,10 +14,6 @@ test.describe('Mission Control page', () => {
         await loginPage.go();
     });
 
-    test('Should display the Mission Control login page', async () => {
-        await loginPage.go();
-    });
-
     test('Should authenticate users in the Mission Control page', async () => {
         await loginPage.login(validUser);
         await expect(navBar.logoutButton()).toBeVisible();

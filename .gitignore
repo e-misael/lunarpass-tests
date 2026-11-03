@@ -1,6 +1,7 @@
 
 # Playwright
 node_modules/
+.dotenv
 /test-results/
 /playwright-report/
 /blob-report/

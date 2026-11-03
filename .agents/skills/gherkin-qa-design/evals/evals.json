@@ -1,0 +1,42 @@
+{
+  "skill_name": "gherkin-qa-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need the Gherkin scenarios for this story: As a customer, I want to recover my password by email so I can get back into my account. Criteria: I receive an email with a link to reset the password; the link expires; the new password must follow the password policy; if the email is not registered, I must not be able to find that out.",
+      "expected_output": "Analysis separating explicit rules, derivable rules, and points to investigate (expiration period and password policy not defined); variants explored (expired link, already used link, unregistered email, password outside the policy); declarative first-person scenarios; questions about expiration period and password policy, without inventing values.",
+      "assertions": [
+        "Does not invent the link expiration period or the password policy criteria",
+        "Records the expiration period and password policy as doubts for the Three Amigos",
+        "User actions appear in the When, never in the Given",
+        "Scenarios in the first person and without mention of buttons, fields, or URLs",
+        "Covers expired link and unregistered email as exceptions",
+        "Output in pure Markdown, without code blocks"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Ticket: 'Develop the transfer screen between accounts. The user enters the destination account and the amount and clicks Transfer. Validate balance.' Write the scenarios for me.",
+      "expected_output": "Recognizes that the ticket is technical and vague; extracts the business rule behind it (transfer only with sufficient balance); lists many gaps (limit per transaction, time windows, nonexistent account, same account holder, fees, amount equal to the balance); writes a few safe scenarios and moves the rest to questions.",
+      "assertions": [
+        "Ignores the screen mechanism (clicking Transfer) and writes at the business level",
+        "Does not assert behavior for an amount exactly equal to the balance without a defined rule",
+        "Lists at least four relevant gaps as questions",
+        "Scenarios for sufficient balance and insufficient balance are present",
+        "Flags hypotheses explicitly"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Free shipping rule: orders above R$ 150 to the South and Southeast regions get free shipping, except bulky products. Premium customers get free shipping in any region starting at R$ 100. Write the specification by example.",
+      "expected_output": "Applies a decision table (amount, region, bulky, Premium) and boundary values; identifies ambiguities (does 'above' include exactly R$ 150? does 'except bulky' apply to Premium? does the order total include the bulky item?); uses Scenario Outline when there are several rows of the same behavior; discards redundant combinations with justification.",
+      "assertions": [
+        "Identifies the ambiguity of 'above' at the R$ 150 limit and treats it as a question",
+        "Identifies the doubt about bulky products for a Premium customer",
+        "Uses a decision table or examples outline in a lean way",
+        "Does not invent a rule for the North, Northeast, and Center-West regions for non-Premium customers",
+        "Records discarded variants with the reason"
+      ]
+    }
+  ]
+}

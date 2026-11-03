@@ -6,15 +6,17 @@ export class LoginPage {
     readonly alert: Locator;
 
     constructor(page: Page) {
-        this.page = page;         
+        this.page = page;
         this.alert = this.page.getByRole('alert');
     }
 
     async go() {
-        await this.page.goto('http://localhost:3000/mission-control/login');
+        await this.page.goto('/mission-control/login');
 
         const title = this.page.getByRole('heading', { name: 'Mission Control' });
         await expect(title).toBeVisible();
+
+        return this;
     }
 
     async login (user: User | string, password?: string) {

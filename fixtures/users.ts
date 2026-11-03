@@ -11,30 +11,39 @@ export interface InvalidUserScenario {
     message: string;
 }
 
+function requiredCredential(name: string): string {
+    const value = process.env[name];
+    if (!value) {
+        throw new Error(`Missing ${name}. Set it in .dotenv or the environment.`);
+    }
+
+    return value;
+}
+
 export const validUser: User = {
-    email: 'buzz@lunarpass.dev',
-    password: 'pwd123'
+    email: requiredCredential('LUNARPASS_EMAIL'),
+    password: requiredCredential('LUNARPASS_PASSWORD')
 };
 
 export const invalidUserScenarios: InvalidUserScenario[] = [
     {
         description: 'using invalid e-mail',
-        user: { email: faker.internet.email(), password: 'pwd123' },
+        user: { email: faker.internet.email(), password: faker.internet.password() },
         message: 'E-mail ou senha inválidos.'
     },
     {
         description: 'using invalid password',
-        user: { email: 'buzz@lunarpass.dev', password: faker.internet.password() },
+        user: { email: validUser.email, password: faker.internet.password() },
         message: 'E-mail ou senha inválidos.'
     },
     {
         description: 'submitting an empty email',
-        user: { email: '', password: 'pwd123' },
+        user: { email: '', password: '' },
         message: 'Informe um e-mail válido'
     },
     {
         description: 'leaving empty password',
-        user: { email: 'buzz@lunarpass.dev', password: '' },
+        user: { email: validUser.email, password: '' },
         message: 'Informe a senha'
     }
 ];
